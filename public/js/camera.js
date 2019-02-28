@@ -1,8 +1,9 @@
 function initCamera() {
   // Uncomment and fill in the correct selectors below.
-  // capture($('<Your code here>'),
-  //        $('<Your code here>'),
-  //        $('<Your code here>'));
+  console.log('camera inited')
+  capture($('#camera-video'),
+          $('#camera-canvas'),
+          $('#camera-button'));
 
   // For Reference:
   // capture($('#camera-video'),
@@ -13,6 +14,7 @@ function initCamera() {
 function capture(video, canvas, snapshotButton) {
   //Adopted from https://dev.opera.com/articles/media-capture-in-mobile-browsers/
   //Setup navigator for all versions of browsers.
+  console.log('capturing');
   navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
               navigator.mozGetUserMedia || navigator.msGetUserMedia;
   var ctx = canvas[0].getContext('2d');
@@ -20,7 +22,7 @@ function capture(video, canvas, snapshotButton) {
   var successCallback = function(mediaStream) {
     //The success callback function. On user click of snapshot button,
     //draw the image on the canvas.
-    // video.attr('src', window.URL.createObjectURL(mediaStream));
+    console.log(video);
     var vid = document.querySelector('#camera-video');
     vid.srcObject = mediaStream;
     snapshotButton.click(function(e) {
@@ -28,7 +30,7 @@ function capture(video, canvas, snapshotButton) {
         //Calculate dimension of photo from the video element.
         var width = video.width();
         var height = video.height();
-        
+
         canvas.attr('width', width);
         canvas.attr('height', height);
         ctx.drawImage(video[0], 0, 0, width, height);
@@ -46,4 +48,3 @@ function capture(video, canvas, snapshotButton) {
       successCallback, errorCallback);
 
 };
-
